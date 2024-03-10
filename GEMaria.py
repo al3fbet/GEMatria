@@ -4,11 +4,36 @@
 # Linguistics [ english, hebrew, greek ]
 #
 
+
 # libraries / modules imported
 import os
 import sys
 import datetime
+import time
 
+
+# clear window function
+def clear():
+ 
+    # for windows
+    if os.name == 'nt':
+        _ = os.system('cls')
+ 
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = os.system('clear')
+clear()
+
+
+with open("ascii.txt", "r") as file:
+    # Read the contents of the file
+    ascii_text = file.read()
+# Get the width of the terminal screen
+terminal_width = os.get_terminal_size().columns
+centered_ascii_text = ascii_text.center(terminal_width)
+
+
+# Greet banner
 learn_101 = """
  █████                                                              
 ░░███                                                               
@@ -33,11 +58,10 @@ learn_101 = """
  """
 print("\n")
 txt_details = """
- by: al3bet
+ by: al3fbet, 2024
  git: github.com/al3fbet
  profile: al3fbet.github.io/
- date: 2024
-                                                                
+ version: 1.0                                                     
 """
 
 print(learn_101)
@@ -46,11 +70,11 @@ print(txt_details)
 current_datetime = datetime.datetime.now()
 formatted_datetime_english = current_datetime.strftime("%A, %B %d, %Y %H:%M:%S")
 print("Current date and time:", formatted_datetime_english)
-print("\n")
+time.sleep(3)
+clear()
 
+print(centered_ascii_text)
 
-
-# Gematria function of the program
 def calculate_gematria(word, alphabet):
     gematria = {}
     if alphabet == "english":
@@ -69,9 +93,13 @@ def calculate_gematria(word, alphabet):
     elif alphabet == "greek":
         # Greek alphabet gematria values
         greek_alphabet = "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ"
-        for i, letter in enumerate(greek_alphabet, 1):
-            gematria[letter] = i if i <= 24 else i + 300
-    
+        values = [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800, 900
+        ]
+        for i, letter in enumerate(greek_alphabet):
+            gematria[letter] = values[i]
+
+    # Calculate Gematria value for the input word
     total_value = sum(gematria.get(char.upper(), 0) for char in word)
     return total_value
 
